@@ -1,7 +1,5 @@
 /*
 HEAP SORT;
-ele vai selecionando os elementos em uma ordem desejada em uma arvore heap binaria; 2 fases: construir um heap maximo atravez da reorganizacao dos elementos do vet inicial;
-2- repetidamente remover o maior elemento e posiciona0lo ao final da parte nao ordenada do vetor, garantindo que a propriedade de ser um valor maximo ou minimo continue valida para o restante dos elementos;
 
 Semelhante as arvores;
 Em um arvore binaria cada nó pode ter nenhum, 1 ou 2 filhos;
@@ -29,7 +27,46 @@ remocao: substituir o no raiz pelo no que esta no ultimo nivel mais a esquerda p
 se a ordem do heap for prejudicava, realiza o processo de afuncar o elemento que esta na raiz e o troca com seu filho de maior valor ou menor;
 complexidade da remocao log n;
 
-
 a busca sempre é feita pelo elemento da raiz
 
+
+HEAP SORT
+
+A ideia para ordenar um vetor A[1,2,...  ,n] usando um heap é:
+
+-contruir um heap maximo;
+-Trocar a raiz com um elemento da ultima posição do vetor;
+-Diminuir o tamanho do heap em 1;
+-Rearranjar o heap maximo, caso necessario;
+-Repetir os tres passos n-1 vezes;
+
+1) primeiro voce troca o ultimo elemento com o primeiro;
+2) depois, compara o que agora é o primeiro elemento com seus filhos, se for maior vai trocar;
 */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+}
+
+void heapSort(int *vet, int N)
+{
+    int i, aux;
+
+    for (i = (N - 1) / 2; i >= 0; i--)
+    {
+        //criar heap a partir dos dados
+        criaHeap(vet, i, N - 1);
+    }
+
+    for (i = N - 1; i <= 1; i--)
+    {
+        //reconstruir o heap
+        aux = vet[0];
+        vet[0] = vet[i];
+        vet[i] = aux;
+        criaHeap(vet, 0, i - 1);
+    }
+}

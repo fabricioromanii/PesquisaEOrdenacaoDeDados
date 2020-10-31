@@ -7,3 +7,4 @@ Insertion sort;
 Selection sort;
 Quick sort;
 Merge sort;
+Radix Sort;
