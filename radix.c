@@ -68,10 +68,3 @@ CONSIDERANDO O PRIMEIRO NUMERO
 ....
 
 */
-
-#include <stdio.h>
-#include <stdlib.h>
-
-int main()
-{
-}
