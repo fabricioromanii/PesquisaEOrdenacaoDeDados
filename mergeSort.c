@@ -1,120 +1,158 @@
+/*
+um dos metodos mais usados;
+
+Pega duas coisas e junta elas, duas listas ordenadas formam uma só;
+
+Merge = juntar/misturar/intercalar;
+
+Metodos que usam estratégias mais sofisticadas e eficientes;
+
+Algoritimo do tipo divisao e conquisa; trabalha em decompor o problema 
+em instancias cada vez menores do mesmo tipo de problema, resolve elas 
+(em geral, recursivamente), e por fim combinar as soluções parciais para 
+obter a solução do problema como um todo;
+
+Ideia geral é dividir o vetor em duas partes;
+depois disso ordena recursivamente cada parte, 
+e depois intercala elas formando um novo segmento ordenado;
+
+as duas listas finais que se se comparam ja sao ordenadas, porque passaram por varias comparações;
+
+quando é lista com n elementos impar, o elemento do meio fica na primeira parte e a segunda é definida apartir de meio+1;
+
+comparações n log n (melhor e pior caso)
+estavel; 
+recursivo;
+
+Este algoritmo necessita de memoria auxiliar, nao é um algoritmo in place;
+
+4,2,1,6,8,5,7,3
+4,2,1,6|8,5,7,3
+4,2|1,6|8,5|7,3
+2,4|1,6|
+se compara a [0] de cada vetor e leva ao vetor ordenado
+1,2|4,6|
+1,2,4,6|8,5|7,3
+1,2,4,6|5,8|3,7
+1,2,4,6|3,5,7,8
+se compara a [0] de cada vetor e leva ao vetor ordenado
+1,2,3,4,5,6,7,8
+
+30,21,43,3,9,82,15
+21,30|4,43|9,82|15
+3,21,30,43|9,15,82
+3,9,15,21,30,43,82
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
-/*merge sort 
-separar para unir
-primeiro separa a lista em dados menores
-e depois de seaprados uni-los ordenadamente
 
-[4, 7, 2, 6, 4, 1, 8, 3]
-divide a lista ao meio
+void intercalando (int *vet, int inicio, int meio, int fim) {
+    int tam = fim - inicio + 1;
+    int i = inicio;
+    int j = meio + 1;
+    int *aux;
+    aux = (int *) malloc(tam*sizeof(int));
+    int k = 0;
 
-fica:
-[4, 7, 2, 6]
-[4, 1, 8, 3]
-
-divide ao meio novamente
-[4,7]
-[2,6]
-[4,1]//[1,4]
-[8,3]//[3,8]
-
-faz chamadas recursivas do mesmo algoritimo
-passando por todas as sublistas
-
-divide de novo
-cada lista fica com um elemento
-[4]
-[7]
-[2]
-[6]
-[4]
-[1]
-[8]
-[3]
-agora vem o passo merge de fato
-
-se tenta juntar as sublistas em uma nova lista, que esteja ordenadamente
-
-inicia a comparação de um com um
-facilitando a ordenação
-o menor é o da fila da direita
-
-//new
-
-dividir e conquistar
-divide um vetor de 10 elementos 
-deixando em 10 subconjuntos de 1 elemento
-coombina 2 subconjuntos de dorma a obter um conjunto maior e ordenado
-se repete até que exista somente um conjunto
-*/
-
-void merge(int *v, int inicio, int meio, int fim){
-    int *temp, p1, p2, tamanho, i, j, k;
-    int fim1 = 0, fim2 = 0;
-    tamanho = fim-inicio+1;
-    p1=inicio;//primeiro vetor
-    p2=meio+1;//segundo vetor
-    temp= (int *)malloc(tamanho*sizeof(int));//novo vetor  
-    if (temp != NULL){
-        for (i=0; i<tamanho; i ++){
-            if(!fim1 && !fim2){
-                if(v[p1]< v[p2]){
-                    temp[i]=v[p2++];
-                }else{
-                    temp[i]=v[p2++];
-                }
-                if(p1>meio)fim1=1;//VETOR
-                if(p2>fim)fim2=1;//ACABOU?
-            }else{
-                if(!fim1){
-                    temp[i]=v[p1++];//copiar o que sobrar
-                }
-                else{//copiar o que sobrar
-                    temp[i]=v[p2++];//copiar o que sobrar
-                }
-            }
+    while(i<=meio && j<=fim){  
+        if(vet[i] < vet[j]){
+            aux[k] = vet[i];
+            i++;
         }
-        for (j=0, k=inicio; j<tamanho; j++, k++){//copiar do auxiliar para o original
-            v[k]=temp[j];//pega os dados do vetor temp e joga no vetor v
+        else{
+            aux[k] = vet[j];
+            j++;
         }
+        k++;
     }
-    free (temp);
+    while(i<=meio){
+        aux[k] = vet[i];
+        k++;
+        i++;
+
+    }
+    while(j<=fim){
+        aux[k] = vet[j];
+        k++;
+        j++;
+
+    }
+       
+    for (k = inicio; k<=fim; k++) {
+        vet[k] = aux[k-inicio];
+
+    }  
+    free(aux);
 }
-void mergesort(int *v, int inicio, int fim){
-    int meio;
-    if(inicio<fim){
-        meio = floor((inicio+fim)/2);//divide o vetor no meio
-        mergesort(v,inicio,meio);//chma a primeira metade do vetor
-        mergesort(v, meio+1,fim);//chama a segunda metade do vetor(meio+ 1 ate fim)
-        merge(v, 0, meio, 100);//combina duas metades de forma ordenada
+
+void mergesort (int *vet, int inicio, int fim) {
+    if (inicio < fim) {
+        int meio =floor(((inicio + fim)/2));
+        mergesort(vet, inicio, meio);
+        mergesort(vet, meio+1, fim);
+        intercalando(vet, inicio, meio, fim);
     }
 }
-int main (void) {
+
+void escolheTipoDoVetor (int TipoDoVetor, int *vet, int n) {
+    if (TipoDoVetor == 1) {
+        for (int i = 0; i < n; i++) {
+            vet[i] = i+1;
+        }
+    }
+    if (TipoDoVetor == 2) {
+        int j = n;
+        for (int i = 0; i < n; i++) {
+            vet[i] = j;
+            j--;
+        }
+    }
+    if (TipoDoVetor == 3){
+        int i;
+        for (i = 0; i < n; i++){
+            vet[i] = rand() % n;
+        }
+    }
+}
+
+void main(){
+    int n;
+    clock_t start,end;
+    double MeuTime;
+    int metodo;
+    int TipoDoVetor;
     int ipo;
-    int TamanhoVetor=100;
-    int v[TamanhoVetor];
-    int indice=0;
 
-    printf("\nEste eh meu vetor inicial\n");
+    printf("\n");
+    printf("TAMANHO\n");
+    scanf("%d", &n);
+    int vet[n];
+    printf("\nORDEM DO VETOR\n1 - Crescente\n2 - Decrescente\n3 - Aleatorio");
+    printf("\n");
+    scanf("%d", &TipoDoVetor);
+    printf("\n");
+    escolheTipoDoVetor (TipoDoVetor, vet, n);
 
-    for(int s = TamanhoVetor; s >= 0; s--){
-      v[indice] = s;
-      indice++;
+    printf("\nDESORDENADO\n");
+    for (ipo = 0; ipo < n; ipo++){
+        printf("%d ", vet[ipo]);
     }
 
-    for (ipo = 0; ipo < 100; ipo++){
-      printf("%d ", v[ipo]);
+    start = clock();
+    
+    mergesort(vet, 0, n-1);  
+    
+    end = clock();
+    
+    printf("\nORDENADO\n");
+    for (ipo = 0; ipo < n; ipo++){
+      printf("%d ", vet[ipo]);
     }
 
-    printf("\nEste eh o vetor ja ordenado com o merge sort\n");
-
-    mergesort(v,100,0);
-
-    for (ipo = 0; ipo < 100; ipo++){
-      printf("%d ", v[ipo]);
-    }
-
-    return 0;
+    MeuTime = ((double)end - start)/CLOCKS_PER_SEC;
+    
+    printf("\n(segundos): %lf\n",MeuTime);
+    printf("(milisegundos): %lf\n",MeuTime*1000);
 }

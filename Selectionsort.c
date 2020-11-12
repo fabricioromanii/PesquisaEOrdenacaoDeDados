@@ -9,49 +9,94 @@ Realiza menos trocas que o bubble sort;
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 int main()
 {
-  int c = 0;
-  printf("Digite o tamanho de vetor e em seguida os valores do vetor: \n");
-  scanf("%d", &c);
-  int lista[c];
-  for (int d = 0; d < c; d++)
-  {
-    int h = 0;
-    scanf("%d", &h);
-    lista[d] = h;
-  }
 
-  for (int z = 0; z < c; z++)
-  {
-    printf("%d ", lista[z]);
-  }
-  printf("\n");
-  int menor_do_menor = lista[0];
-  for (int i = 0; i < c; i++)
-  {
-    int menor = lista[i];
-    int posmenor = i;
-    for (int j = i; j < c; j++)
+    int TamVet;
+
+    printf("Digite o tamanho de vetor: \n");
+    scanf("%d", &TamVet);
+
+    int selec_vet[TamVet];
+    int OrdemVet;
+    int ValorDecre = TamVet;
+
+    printf("Escolha um numero: 1-aleatorio // 2-crescente // 3-decrescente \n");
+    scanf("%d", &OrdemVet);
+
+    if (OrdemVet == 1)
     {
-      if (lista[j] < menor)
-      {
-        menor = lista[j];
-        posmenor = j;
-      }
+        printf("ORGANIZACAO SELECTION DA LISTA COM NUMEROS ALEATÓRIOS DE %d itens\n", TamVet);
+        for (int s = 0; s < TamVet; s++)
+        {
+            selec_vet[s] = rand() % 10000;
+        }
     }
-    int a = lista[i];
-    lista[i] = menor;
-    lista[posmenor] = a;
-    for (int o = 0; o < c; o++)
+    else if (OrdemVet == 2)
     {
-      printf("%d ", lista[o]);
+        printf("ORGANIZACAO SELECTION DA LISTA COM NUMEROS CRESCENTES DE %d itens\n", TamVet);
+        for (int s = 0; s < TamVet; s++)
+        {
+            selec_vet[s] = s;
+        }
+    }
+    else if (OrdemVet == 3)
+    {
+        printf("ORGANIZACAO SELECTION DA LISTA COM NUMEROS DECRESCENTES DE %d itens\n", TamVet);
+        for (int s = 0; s < TamVet; s++)
+        {
+            selec_vet[s] = ValorDecre;
+            ValorDecre--;
+        }
+    }
+
+    int comparacoes = 0;
+    int trocas = 0;
+
+    clock_t t;
+    int menor_do_menor = selec_vet[0];
+    t = clock();
+
+    for (int i = 0; i < TamVet; i++)
+    {
+        int menor = selec_vet[i];
+        int posmenor = i;
+        for (int j = i; j < TamVet; j++)
+        {
+            comparacoes++;
+            if (selec_vet[j] < menor)
+            {
+                menor = selec_vet[j];
+                posmenor = j;
+                trocas++;
+            }
+        }
+        int a = selec_vet[i];
+        selec_vet[i] = menor;
+        selec_vet[posmenor] = a;
+    }
+
+    t = clock() - t;
+    for (int o = 0; o < TamVet; o++)
+    {
+        printf("%d ", selec_vet[o]);
     }
     printf("\n");
-  }
-  for (int o = 0; o < c; o++)
-  {
-    printf("%d ", lista[o]);
-  }
-  return 0;
+    if (OrdemVet == 1)
+    {
+        printf("ORGANIZACAO SELECTION DA LISTA COM NUMEROS ALEATÓRIOS DE %d itens\n", TamVet);
+    }
+    else if (OrdemVet == 2)
+    {
+        printf("ORGANIZACAO SELECTION DA LISTA COM NUMEROS CRESCENTES DE %d itens\n", TamVet);
+    }
+    else if (OrdemVet == 3)
+    {
+        printf("ORGANIZACAO SELECTION DA LISTA COM NUMEROS DECRESCENTES DE %d itens\n", TamVet);
+    }
+    printf("Tempo de execucao: %lf ms\n", ((double)t) / ((CLOCKS_PER_SEC / 1000)));
+    printf("Comparacoes %d \n", comparacoes);
+    printf("Trocas %d\n", trocas);
+    return 0;
 }

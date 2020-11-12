@@ -47,57 +47,102 @@ $4, 4,|6|,$21, $54
 $4,$4,$6, $21, $54
 
 */
-
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <math.h>
 
-int particiona(int *v, int inicio, int final)
-{
-    int esq, dir, pivo, aux;
-    esq = inicio;
-    dir = final;
-    pivo = v[inicio]; //pivo é minha posição de inicio nesse caso;
-
-    while (esq < dir)
-    {
-        //enquanto a esq<dir eu ando com esq ate encontrar um elemento menor que pivo;
-        while (v[esq] <= pivo)
+int particionando (int *vet, int inicio, int fim) {
+    int pivo = vet[inicio];
+    int aux, esq, dir;
+    esq = inicio + 1;
+    dir = fim;
+    while(esq <= dir){
+        if(vet[esq] <= pivo){
             esq++;
-        //recua posicao da direita;
-        while (v[dir] > pivo)
-            dir--;
-        //se esquerda for menor que direita entao troca os dois de lugar;
-        if (esq < dir)
-        {
-            aux = v[esq];
-            v[esq] = v[dir];
-            v[dir] = aux;
         }
-        printf("%d\n", pivo);
+        else if (vet[dir] > pivo){
+            dir--;
+        }
+        else if(esq <= dir){
+            aux = vet[esq];
+            vet[esq] = vet[dir];
+            vet[dir] = aux;
+            esq++;
+            dir--;
+        }
     }
-    //paro o processo quando a esquerda nao for mais menor que a direita;
-    v[inicio] = v[dir]; //inicio recebe o valor aonde a direita parou;
-    v[dir] = pivo;      //a posicao da direita se torna o valor do pivo;
-    return dir;         //aonde parei com a direita é o ponto aonde todos antes sao menores e todos apos sao maiores;
+    vet[inicio] = vet[dir];
+    vet[dir] = pivo;
+    return dir;
 }
 
-void quickSort(int *v, int inicio, int fim)
-//passo um vetor, o inicio e o fim dele;
-{
+void quicksort (int *vet, int inicio, int fim) {
     int pivo;
-    if (fim > inicio)
-    {
-        //Se fim>inicio calculo o pivo usando uma função particiona;
-        pivo = particiona(v, inicio, fim);
-        //tendo o pivo, para os elementos antes do pivo e os elementos sequentes;
-        quickSort(v, inicio, pivo - 1);
-        quickSort(v, pivo + 1, fim);
+    if (inicio < fim) {
+        pivo = particionando (vet, inicio, fim);
+        quicksort(vet, inicio, pivo-1);
+        quicksort(vet, pivo+1, fim);
+
     }
 }
 
-int main()
-{
-    int v[10] = {1, 2, 34, 55, 777, 544, 55, 23, 2, 5};
-    quickSort(v, 0, 9);
-    return 0;
+void escolheTipoDoVetor (int TipoDoVetor, int *vet, int n) {
+    if (TipoDoVetor == 1) {
+        for (int i = 0; i < n; i++) {
+            vet[i] = i+1;
+        }
+    }
+    if (TipoDoVetor == 2) {
+        int j = n;
+        for (int i = 0; i < n; i++) {
+            vet[i] = j;
+            j--;
+        }
+    }
+    if (TipoDoVetor == 3){
+        int i;
+        for (i = 0; i < n; i++){
+            vet[i] = rand() % n;
+        }
+    }
+}
+
+void main(){
+    int n;
+    clock_t start,end;
+    double MeuTime;
+    int metodo;
+    int TipoDoVetor;
+    int ipo;
+
+    printf("TAMANHO\n");
+    scanf("%d", &n);
+    int vet[n];
+    printf("\nORDEM DO VETOR\n1 - Crescente\n2 - Decrescente\n3 - Aleatorio");
+    printf("\n");
+    scanf("%d", &TipoDoVetor);
+    printf("\n");
+    escolheTipoDoVetor(TipoDoVetor, vet, n);
+
+    printf("\nDESORDENADO\n");
+    for (ipo = 0; ipo < n; ipo++){
+      printf("%d ", vet[ipo]);
+    } 
+
+    start = clock();
+    
+    quicksort(vet, 0, n-1);
+
+    end = clock();
+
+    printf("\nORDENADO\n");
+    for (ipo = 0; ipo < n; ipo++){
+      printf("%d ", vet[ipo]);
+    }
+
+    MeuTime = ((double)end - start)/CLOCKS_PER_SEC;
+    
+    printf("\n(segundos): %lf\n",MeuTime);
+    printf("(milisegundos): %lf\n",MeuTime*1000); 
 }
