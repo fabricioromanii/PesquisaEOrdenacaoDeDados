@@ -25,8 +25,6 @@ void main()
     //lendo valores e passando para um vetor
     for (i = 0; i < 10; i++)
     {
-        printf("Digite um numero para adicionar ao vetor.");
-        scanf("%d\n", &vetor[i]);
         printf("Posicao %d : %d\n", i, vetor[i]);
     }
 }

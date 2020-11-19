@@ -1,0 +1,22 @@
+O Dr. Chapatin é muito conhecido no meio médico Seu reconhecimento vem de sua ética com os pacientes, como a apresentada na cura milagrosa de ‘Tripa Seca’ (criminoso conhecido). Como sua idade já é um pouco avançada ele costuma esquecer o contato de seus conhecidos. Desta forma, o Dr. Chapatin pediu para seu amigo, Super Sam, que contratasse alguém para implementar sua agenda. Super Sam sabe de seus dotes como programador, e o convocou para a tarefa. Assim, você deve implementar uma agenda funcional. A agenda é simples, ela possui uma lista de contatos que deve ser persistida em disco.
+
+Um contato é representado por uma estrutura de dados contendo: 
+
+Char name[30] que armazena o nome do contato;
+Date birth que armazena a data de nascimento (Date é uma estrutura que possui dia, mês e ano);
+Char email[40] que armazena o e mail;
+Char phone[15] que armazena o telefone;
+A agenda deve ser capaz de realizar as seguintes operações:
+
+Inserir contatos;
+Deletar contato;
+Listar os contatos (os contatos devem ser exibidos em ordem alfabética);
+Não será avaliada a complexidade do método de ordenação escolhido. Implemente o método que quiser.
+Consultar um contato (pelo nome);
+Implemente uma forma de pesquisa mais eficiente que uma simples busca linear.
+Atualizar os campos de um contato;
+Armazenar os dados em um arquivo;
+Sempre que o sistema for aberto ele deve procurar pelo arquivo de dados, caso não exista deve ser criado. Se existir, os dados devem ser automaticamente importados para a memória.
+Junto a esta descrição disponibilizamos um esqueleto da agenda, utilize este esqueleto para sua implementação. 
+
+A entrega deve ser realizado no prazo, através. Durante a aula do dia 17/12 os trabalhos deverão ser apresentados pelos integrantes da dupla.

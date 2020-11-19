@@ -2,8 +2,23 @@
 #include <stdlib.h>
 
 void main()
-{
-    int vetor[50], i;
+{   
+    int n = 50;
+    int inicio = 0;
+    int fim = n-1;
+    int vetor[n], i;
+
+    while(inicio <= (inicio + fim)/2){
+        if(vetor[(inicio + fim)/2]){
+            return (inicio + fim)/2;
+        }else{
+            fim=((inicio + fim)/2) - 1;
+            }
+        
+    }
+
+
+
 
     for (i = 0; i < 10; i++)
     {
