@@ -1,0 +1,2 @@
+Utiliza um "array" para armazenar os eleentos; Preciso definir o tamanho previamente;
+

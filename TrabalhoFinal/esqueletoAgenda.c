@@ -9,10 +9,7 @@
 	- Não serão toleradas variaveis globais
 	- Caso seja detectado plágio, os grupos envolvidos receberão nota 0.
 */
-
 #include <stdio.h> 
-
-
 #define EXIT 10  // valor fixo para a opção que finaliza a aplicação
 
 //Struct que representa a data.
@@ -21,7 +18,6 @@ typedef struct {
 	int month;
 	int year;
 } Date;
-
 
 // Estrutura que contém os campos dos registros da agenda
 struct MREC {
@@ -45,7 +41,6 @@ int menu()
         printf("%d Finaliza",EXIT);
         printf("\n: ");
         scanf("%d",&op);
-       
     }
     return op;
 }
@@ -79,7 +74,6 @@ void upContact ()
 {
      return;
 }
-
 
 // Programa principal
 int main()
