@@ -1,4 +1,4 @@
-O Dr. Chapatin é muito conhecido no meio médico Seu reconhecimento vem de sua ética com os pacientes, como a apresentada na cura milagrosa de ‘Tripa Seca’ (criminoso conhecido). 
+O Dr. Chapadin é muito conhecido no meio médico Seu reconhecimento vem de sua ética com os pacientes, como a apresentada na cura milagrosa de ‘Tripa Seca’ (criminoso conhecido). 
 Como sua idade já é um pouco avançada ele costuma esquecer o contato de seus conhecidos. Desta forma, o Dr. Chapatin pediu para seu amigo, Super Sam, que contratasse alguém para implementar sua agenda.
 Super Sam sabe de seus dotes como programador, e o convocou para a tarefa. Assim, você deve implementar uma agenda funcional. A agenda é simples, ela possui uma lista de contatos que deve ser persistida em disco.
 
