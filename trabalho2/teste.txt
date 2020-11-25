@@ -1,0 +1,18 @@
+void main(){
+    int vet[5] = {3,27,6,4,5};
+    int n=5;
+
+    printf("Valore desordenados ");
+    for(int q=0;q<n;q++){
+        printf("%d ",vet[q]);
+        }
+    printf("\n");
+
+    quicksort(vet, 0, n);
+
+    printf("Valore ordenados ");
+    for(int q=0;q<n;q++){
+        printf("%d ",vet[q]);
+        }
+    printf("\n");
+}
