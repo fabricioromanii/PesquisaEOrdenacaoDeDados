@@ -21,4 +21,3 @@ Armazenar os dados em um arquivo;
 Sempre que o sistema for aberto ele deve procurar pelo arquivo de dados, caso não exista deve ser criado. Se existir, os dados devem ser automaticamente importados para a memória.
 Junto a esta descrição disponibilizamos um esqueleto da agenda, utilize este esqueleto para sua implementação. 
 
-A entrega deve ser realizado no prazo, através. Durante a aula do dia 17/12 os trabalhos deverão ser apresentados pelos integrantes da dupla.
